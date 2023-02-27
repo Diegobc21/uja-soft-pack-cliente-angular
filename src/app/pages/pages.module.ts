@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MainComponent} from './main/main.component';
 import {SoftwareComponent} from './software/software.component';
-import { CategoryComponent } from './category/category.component';
+import {CategoryComponent} from './category/category.component';
 
 @NgModule({
   declarations: [

@@ -68,7 +68,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this._subscriptions.push(
       this.softwareService.getCategories().subscribe(value => {
         this.categoryList = value;
-        this._subscriptions.push(this.softwareService.getSoftware().subscribe(softwareResponse =>
+        this._subscriptions.push(
+          this.softwareService.getSoftware().subscribe(softwareResponse =>
             this.softwareList = softwareResponse
           )
         );

@@ -65,19 +65,22 @@ export class SoftwareComponent implements OnInit, OnDestroy {
 
   private startSubscriptions() {
     this._subscriptions.push(this.activatedRoute.paramMap.subscribe(routeParams => {
-      this.softwareName = routeParams.get('name') ?? '';
+      this.softwareName = routeParams.get('name') ?? null;
+      if (this.softwareName !== null) {
+        this._subscriptions.push(
+          this.softwareService.getByName(this.softwareName)
+            .subscribe(value => {
+              if (value) {
+                this._software = value;
+              } else {
+                this.goBack();
+              }
+            }));
+      } else {
+        this.goBack();
+      }
     }));
-    if (this.softwareName !== null) {
-      this._subscriptions.push(this.softwareService.getByName(this.softwareName).subscribe(value => {
-        if (value) {
-          this._software = value;
-        } else {
-          this.goBack();
-        }
-      }));
-    } else {
-      this.goBack();
-    }
+
   }
 
 }
