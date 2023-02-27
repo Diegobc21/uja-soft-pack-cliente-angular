@@ -1,0 +1,75 @@
+<div *ngIf="software">
+  <div class="position-relative overflow-hidden p-md-5">
+    <button class="btn btn-secondary mx-4" (click)="goBack()">
+      Volver
+    </button>
+    <div class="d-flex justify-content-center col-md-5 mx-auto mt-2">
+      <img [src]="software.iconURL" style="height: 50px; width: 50px;"
+           alt="icon" class="my-auto mx-2">
+      <h1 class="fs-1 fw-normal m-0 my-auto">  {{ software.nombre }}
+      </h1>
+    </div>
+    <p class="container lead fw-normal py-2 text-center"> {{ software.descripcion }} </p>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+  </div>
+
+  <div style="min-height: 700px;">
+    <div class="bg-image p-2 my-2">
+      <h4 class="container fs-2 text-white">
+        Descarga
+      </h4>
+    </div>
+
+    <div class="container py-4 fw-bold">
+      <div class="row justify-content-evenly">
+        <div class="col-lg-4 text-center mb-3">
+          <div class="mb-2 fs-4">
+            Instalador oficial
+          </div>
+          <a target="_blank" [href]="this.software.descarga"
+             class="btn btn-success fs-6" style="cursor: pointer">Descargar
+          </a>
+        </div>
+        <div class="col-lg-4 text-center">
+          <div class="mb-3 fs-4">Comando winget</div>
+          <kbd (click)="copyToClipboard()" id="winget" style="cursor: pointer"
+               class="container-fluid p-3 my-auto text-nowrap">
+            <svg *ngIf="!copiedToClipboard" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                 fill="currentColor"
+                 class="bi bi-clipboard m-2" viewBox="0 0 16 16">
+              <path
+                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+              <path
+                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+            </svg>
+            <svg *ngIf="copiedToClipboard" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-check-lg m-2" viewBox="0 0 16 16">
+              <path
+                d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+            </svg>
+            winget install --id={{software.winget_id}} -e
+          </kbd>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="software.extras">
+      <div class="bg-image p-2 my-2">
+        <h4 class="container fs-2 text-white">
+          Otros
+        </h4>
+      </div>
+      <div class="container" *ngFor="let extra of software.extras">
+        <div class="my-4">
+          <h4>
+            <a [href]="extra.fuente" target="_blank" [title]="extra.titulo" class="link-primary text-decoration-none">
+              {{ extra.titulo }}
+            </a>
+          </h4>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

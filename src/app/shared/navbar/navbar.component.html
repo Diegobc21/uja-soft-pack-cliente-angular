@@ -1,0 +1,31 @@
+<nav [class.max-size]="isNavbarTogglerCollapsed()" class="navbar navbar-expand-lg border-bottom py-4 mb-2">
+  <div class="container">
+    <div role="link" class="navbar-brand fs-4 fw-bold pointer" (click)="goToMainPage($event)">
+      {{appName}}
+    </div>
+    <button class="navbar-toggler" type="button" id="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item pointer">
+          <a class="nav-link active" aria-current="page" (click)="goToMainPage($event)">Inicio</a>
+        </li>
+        <li class="nav-item dropdown">
+          <div class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categorías
+          </div>
+          <ul class="dropdown-menu">
+            <div *ngIf="categoryList">
+              <li *ngFor="let category of categoryList">
+                <a class="dropdown-item fw-bold pointer" (click)="goToCategoryView(category)">
+                  {{category.toUpperCase() }}</a>
+              </li>
+            </div>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

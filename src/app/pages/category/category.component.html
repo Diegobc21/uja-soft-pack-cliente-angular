@@ -1,0 +1,32 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-md-8">
+
+    <div class="py-5 text-center">
+      <h4 class="mb-0 fw-bold fs-2">{{categoryName?.toUpperCase()}}</h4>
+    </div>
+
+    <ul *ngIf="softwareList.length > 0" class="list-style-none p-0">
+      <li *ngFor="let software of softwareList" class="list-unstyled border-top px-3">
+        <div class="d-flex justify-content-between py-3">
+          <div class="d-flex pointer my-auto">
+            <img (click)="gotoSoftware(software.nombre)" [src]="software.iconURL" alt="Icon"
+                 class="icon mx-2 my-auto">
+            <p (click)="gotoSoftware(software.nombre)"
+               class="fw-bold link-primary my-auto p-0 fs-5">{{software.nombre}}</p>
+          </div>
+          <div class="my-auto">
+            <a role="button" [href]="software.descarga" class="btn btn-success mx-2">Descargar</a>
+          </div>
+        </div>
+        <div class="pb-3">
+          <span class="text-muted">{{software.descripcion}}</span>
+        </div>
+      </li>
+    </ul>
+
+    <h2 *ngIf="softwareList.length === 0" class="text-center">
+      No se encontraron resultados
+    </h2>
+  </div>
+</div>
+

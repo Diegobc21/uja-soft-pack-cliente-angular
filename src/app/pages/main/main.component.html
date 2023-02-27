@@ -1,0 +1,57 @@
+<main>
+  <section class="bg-image px-5 mb-4 bg-dark">
+    <div class="container-sm py-5 text-white">
+      <h1 class="display-5 fw-bold">Bienvenido a {{ appName }}</h1>
+      <p class="fs-4">Aquí encontrarás el software que necesitas para seguir desarrollando tus proyectos.</p>
+      <p class="fs-4">Únicamente para usuarios que utilicen Windows 10 en adelante.</p>
+    </div>
+  </section>
+
+  <div *ngIf="categoryList">
+    <div class="container">
+      <h4 class="mx-4">Elige programas de la lista:</h4>
+      <div class="row">
+        <div *ngFor="let category of categoryList" class="col-md-4 my-4">
+
+          <h4 class="fw-bolder text-center">
+            {{category | uppercase}}
+          </h4>
+
+          <div class="text-center" *ngFor="let software of softwareList">
+            <div *ngIf="software.categorias.listado[software.categorias.posicionPrincipal] === category">
+              <div class="d-flex justify-content-center">
+                <input class="form-check-input mx-2 my-auto" type="checkbox" (click)="checkboxChange(software)"
+                       [value]="software.nombre" [id]="software.nombre">
+                <div class="d-flex pointer" (click)="gotoSoftware(software.nombre)">
+                  <img [src]="software.iconURL" [title]="software.nombre"
+                       class="pointer my-auto small-icon" alt="icon">
+                  <div type="button" class="fw-semibold pointer mx-2 my-auto">
+                    {{software.nombre}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="mt-4 text-center">
+      <h3>Comienza tu descarga</h3>
+
+      <button [disabled]="selectionIsEmpty()" (click)="downloadAll($event)" class="btn btn-outline-success my-3">
+        Descargar
+      </button>
+
+      <p class="fs-6">Ejecute el archivo (preferiblemente como administrador)</p>
+      <p class="fs-6">Se instalará el software automáticamente</p>
+      <p class="fs-6"><span class="fw-bold">NOTA:</span> Se solicitará aceptar los términos en el primer uso</p>
+    </form>
+
+  </div>
+
+  <h2 *ngIf="!categoryList" class="text-center">
+    <p>No se encontraron resultados</p>
+  </h2>
+</main>
+
