@@ -13,8 +13,8 @@ Realizado por Diego Barrales Castillo
 
 # Aplicación desplegada con Netlify
 
-## [UJA Soft-Pack](https://uja-soft-pack-cliente.netlify.app/home)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b0feaaa3-1114-4377-8521-4fda6f52b2e7/deploy-status)](https://app.netlify.com/sites/uja-soft-pack-cliente/deploys)
+## [UJA Soft-Pack](https://uja-soft-pack.netlify.app/home)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5fc8b988-fa0d-43f0-88b6-dc651d8399af/deploy-status)](https://app.netlify.com/sites/uja-soft-pack/deploys)
 
 
 ## Puesta en marcha (se requiere el servidor en funcionamiento)
