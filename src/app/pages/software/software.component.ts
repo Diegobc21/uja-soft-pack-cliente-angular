@@ -35,23 +35,8 @@ export class SoftwareComponent implements OnInit, OnDestroy {
   public copyToClipboard(): void {
     const textToCopy = <string>document.getElementById('winget')?.innerText;
 
-    if (!navigator.clipboard) {
-      const selBox = document.createElement('textarea');
-      selBox.style.position = 'fixed';
-      selBox.style.left = '0';
-      selBox.style.top = '0';
-      selBox.style.opacity = '0';
-      selBox.style.display = 'none';
-      selBox.value = textToCopy;
-      document.body.appendChild(selBox);
-      selBox.focus();
-      selBox.select();
-      // @ts-ignore
-      selBox.execCommand('copy');
-      document.body.removeChild(selBox);
-    } else {
-      navigator.clipboard.writeText(textToCopy).then(() => undefined);
-    }
+    this.utilsService.copyToClipBoard(textToCopy);
+
     this.copiedToClipboard = true;
   }
 

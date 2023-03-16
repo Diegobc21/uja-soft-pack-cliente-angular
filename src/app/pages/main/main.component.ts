@@ -35,6 +35,11 @@ export class MainComponent implements OnInit, OnDestroy {
     this.startSubscriptions();
   }
 
+  /**
+   * Función para actualizar la selección del software
+   *
+   * @param software: objeto software a añadir/eliminar
+   */
   public checkboxChange(software: Software): void {
     if (this.wingetList.includes(software.winget_id)) {
       const index = this.wingetList.indexOf(software.winget_id);

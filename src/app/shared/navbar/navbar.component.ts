@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {UtilsService} from "../../core/services/utils.service";
 import {Subscription} from "rxjs";
 import {SoftwareService} from "../../core/services/software.service";
@@ -8,19 +8,23 @@ import {SoftwareService} from "../../core/services/software.service";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public categoryList: string[] = [];
 
   private _subscription: Subscription | null = null;
-  private _navbarToggler: HTMLElement | null = document.getElementById('navbar-toggler');
+  private _navbarToggler: HTMLElement | null = null;
 
   constructor(private softwareService: SoftwareService,
-              private utilsService: UtilsService) {
+              public utilsService: UtilsService) {
   }
 
   get appName(): string {
     return this.utilsService.appName;
+  }
+
+  public ngAfterViewInit() {
+    this._navbarToggler = document.getElementById('navbar-toggler');
   }
 
   public ngOnInit() {
@@ -34,24 +38,36 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   public goToCategoryView(category: string): void {
+    this.toggleNavbar();
     this.utilsService.goToCategoryPage(category);
-  }
-
-  public toggleNavbar(): void {
-    if (this.isNavbarTogglerCollapsed()) {
-      this._navbarToggler!.click();
-    }
-  }
-
-  public isNavbarTogglerCollapsed(): boolean {
-    if (this._navbarToggler != null) {
-      return this._navbarToggler?.classList.contains('collapsed');
-    }
-    return false;
   }
 
   public ngOnDestroy() {
     this._subscription?.unsubscribe();
+  }
+
+  /**
+   * Función para cerrar la barra de navegación si está desplegada
+   */
+  public toggleNavbar(): void {
+    if (this._navbarToggler) {
+      if (!this.isNavbarTogglerCollapsed()) {
+        this._navbarToggler.click();
+      }
+    }
+  }
+
+  /**
+   * Función que indica si la barra de navegación está o no desplegada
+   *
+   * @returns true: si la barra está comprimida
+   * @returns false: si la barra está desplegada
+   */
+  public isNavbarTogglerCollapsed(): boolean {
+    if (this._navbarToggler) {
+      return this._navbarToggler?.classList.contains('collapsed');
+    }
+    return false;
   }
 
   private startSubscriptions(): void {
