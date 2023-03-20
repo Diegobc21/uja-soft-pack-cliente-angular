@@ -33,7 +33,7 @@ export class SoftwareService {
   /**
    * Función que devuelve un objeto software utilizando su nombre como parámetro
    *
-   * @param softwareName: nombre del software
+   * @param softwareName nombre del software
    */
   public getByName(softwareName: string): Observable<Software> {
     return this.http.get<Software>(this._url + '/software/' + softwareName);
@@ -42,7 +42,7 @@ export class SoftwareService {
   /**
    * Función que devuelve un vector de objetos software utilizando una categoría como parámetro
    *
-   * @param categoryName: nombre de la categoría
+   * @param categoryName nombre de la categoría
    */
   public getByCategoryName(categoryName: string): Observable<Software[]> {
     return this.http.get<Software[]>(this._url + '/software?category=' + categoryName);

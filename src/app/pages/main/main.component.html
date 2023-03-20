@@ -22,7 +22,7 @@
               <div class="d-flex justify-content-center">
                 <input class="form-check-input mx-2 my-auto" type="checkbox" (click)="checkboxChange(software)"
                        [value]="software.nombre" [id]="software.nombre">
-                <div class="d-flex pointer" (click)="gotoSoftware(software.nombre)">
+                <div class="d-flex pointer" (click)="goToSoftwarePage(software.nombre)">
                   <img [src]="software.iconURL" [title]="software.nombre"
                        class="pointer my-auto small-icon" alt="icon">
                   <div type="button" class="fw-semibold pointer mx-2 my-auto">

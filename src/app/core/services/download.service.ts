@@ -34,6 +34,7 @@ export class DownloadService {
     let element = document.createElement('a');
     element.style.display = 'none';
 
+    // Variable para almacenar el contenido del script
     let scriptContent: string = '';
 
     // Se completa el contenido del fichero
@@ -47,7 +48,7 @@ export class DownloadService {
 
     document.body.appendChild(element);
 
-    // Se ejecuta la descarga del enlace
+    // Se ejecuta la descarga haciendo click en el enlace
     element.click();
 
     document.body.removeChild(element);

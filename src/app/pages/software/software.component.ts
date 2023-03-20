@@ -21,7 +21,6 @@ export class SoftwareComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute,
               private utilsService: UtilsService,
               private softwareService: SoftwareService) {
-    this.copiedToClipboard = false;
   }
 
   get software(): Software | undefined {
@@ -33,6 +32,7 @@ export class SoftwareComponent implements OnInit, OnDestroy {
   }
 
   public copyToClipboard(): void {
+    // Se extrae del DOM el texto completo a copiar
     const textToCopy = <string>document.getElementById('winget')?.innerText;
 
     this.utilsService.copyToClipBoard(textToCopy);
@@ -50,13 +50,13 @@ export class SoftwareComponent implements OnInit, OnDestroy {
 
   private startSubscriptions() {
     this._subscriptions.push(this.activatedRoute.paramMap.subscribe(routeParams => {
-      this.softwareName = routeParams.get('name') ?? null;
+      this.softwareName = routeParams.get('name');
       if (this.softwareName !== null) {
         this._subscriptions.push(
           this.softwareService.getByName(this.softwareName)
-            .subscribe(value => {
-              if (value) {
-                this._software = value;
+            .subscribe(software => {
+              if (software) {
+                this._software = software;
               } else {
                 this.goBack();
               }
@@ -65,7 +65,6 @@ export class SoftwareComponent implements OnInit, OnDestroy {
         this.goBack();
       }
     }));
-
   }
 
 }

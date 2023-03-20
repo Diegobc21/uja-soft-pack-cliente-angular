@@ -13,6 +13,8 @@ export class UtilsService {
 
   /**
    * Función que devuelve el nombre de la aplicación
+   *
+   * @returns Nombre de la aplicación
    */
   get appName(): string {
     return environment.appName;
@@ -28,7 +30,7 @@ export class UtilsService {
   /**
    * Función que realiza la navegación hacia la página de categoría
    *
-   * @param name: nombre de la categoría
+   * @param name nombre de la categoría
    */
   public goToCategoryPage(name: string): void {
     this.router.navigate(['category/' + name]).then();
@@ -37,7 +39,6 @@ export class UtilsService {
   /**
    * Función que realiza la navegación hacia la página de software
    *
-   * @param name: nombre del software
    */
   public goToSoftwarePage(name: string): void {
     this.router.navigate(['software/' + name]).then();
@@ -46,7 +47,7 @@ export class UtilsService {
   /**
    * Función para copiar texto al portapapeles del dispositivo
    *
-   * @param textToCopy: texto a copiar
+   * @param textToCopy texto a copiar
    */
   public copyToClipBoard(textToCopy: string): void {
     if (!navigator.clipboard) {

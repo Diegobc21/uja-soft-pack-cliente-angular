@@ -15,7 +15,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   public softwareList: Software[] = [];
   public categoryList: string[] = [];
-  public wingetList: string[] = [];
+  // Lista que contendrá el winget ID del software a descargar
+  public downloadList: string[] = [];
 
   private _subscriptions: Subscription[] = [];
 
@@ -38,29 +39,39 @@ export class MainComponent implements OnInit, OnDestroy {
   /**
    * Función para actualizar la selección del software
    *
-   * @param software: objeto software a añadir/eliminar
+   * @param software Objeto software a añadir/eliminar
    */
   public checkboxChange(software: Software): void {
-    if (this.wingetList.includes(software.winget_id)) {
-      const index = this.wingetList.indexOf(software.winget_id);
-      this.wingetList.splice(index, 1);
+    if (this.downloadList.includes(software.winget_id)) {
+      const index = this.downloadList.indexOf(software.winget_id);
+      this.downloadList.splice(index, 1);
     } else {
-      this.wingetList.push(software.winget_id);
+      this.downloadList.push(software.winget_id);
     }
   }
 
+  /**
+   * Función para indicar si la lista de software está vacía
+   *
+   * @returns boolean
+   */
   public selectionIsEmpty(): boolean {
-    return this.wingetList.length === 0;
+    return this.downloadList.length === 0;
   }
 
+  /**
+   * Función para descargar el listado seleccionado de software
+   *
+   * @param event Evento de ratón
+   */
   public downloadAll(event: MouseEvent) {
     event.preventDefault();
-    this.downloadService.downloadAll(this.wingetList.slice());
+    this.downloadService.downloadAll(this.downloadList.slice());
   }
 
-  public gotoSoftware(name: string): void {
-    if (name) {
-      this.utilsService.goToSoftwarePage(name);
+  public goToSoftwarePage(softwareName: string): void {
+    if (softwareName) {
+      this.utilsService.goToSoftwarePage(softwareName);
       this.resetAll();
     }
   }
@@ -71,11 +82,14 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private startSubscriptions() {
     this._subscriptions.push(
-      this.softwareService.getCategories().subscribe(value => {
-        this.categoryList = value;
+      this.softwareService.getCategories().subscribe(categoryList => {
+        this.categoryList = categoryList;
         this._subscriptions.push(
-          this.softwareService.getSoftware().subscribe(softwareResponse =>
-            this.softwareList = softwareResponse
+          this.softwareService.getSoftware().subscribe(softwareList => {
+              if (softwareList) {
+                this.softwareList = softwareList;
+              }
+            }
           )
         );
       })
@@ -84,7 +98,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private resetAll(): void {
     this.softwareList = [];
-    this.wingetList = [];
+    this.downloadList = [];
     this.categoryList = [];
   }
 

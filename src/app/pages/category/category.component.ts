@@ -32,8 +32,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.utilsService.goToMainPage();
   }
 
-  public gotoSoftware(name: string): void {
-    this.utilsService.goToSoftwarePage(name);
+  public gotoSoftware(softwareName: string): void {
+    this.utilsService.goToSoftwarePage(softwareName);
   }
 
   public ngOnDestroy(): void {
@@ -43,13 +43,13 @@ export class CategoryComponent implements OnInit, OnDestroy {
   private startSubscriptions() {
     this._subscriptions.push(
       this.activatedRoute.paramMap.subscribe(routeParams => {
-          this.categoryName = routeParams.get('name')
+          this.categoryName = routeParams.get('name');
           if (this.categoryName !== null) {
             this._subscriptions.push(
               this.softwareService.getByCategoryName(this.categoryName)
-                .subscribe(software => {
-                    if (software) {
-                      this.softwareList = software;
+                .subscribe(softwareList => {
+                    if (softwareList) {
+                      this.softwareList = softwareList;
                     }
                   }
                 ));

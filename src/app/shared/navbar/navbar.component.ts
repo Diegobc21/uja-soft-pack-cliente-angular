@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit() {
+    // Se selecciona del DOM el botón de desplegar/comprimir la barra de navegación
     this._navbarToggler = document.getElementById('navbar-toggler');
   }
 
@@ -47,7 +48,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Función para cerrar la barra de navegación si está desplegada
+   * Función que cierra la barra de navegación si está desplegada
    */
   public toggleNavbar(): void {
     if (this._navbarToggler) {
@@ -58,10 +59,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Función que indica si la barra de navegación está o no desplegada
+   * Función que indica si la barra de navegación no está comprimida
    *
    * @returns true: si la barra está comprimida
-   * @returns false: si la barra está desplegada
    */
   public isNavbarTogglerCollapsed(): boolean {
     if (this._navbarToggler) {
@@ -71,8 +71,8 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private startSubscriptions(): void {
-    this.softwareService.getCategories().subscribe(value => {
-      this.categoryList = value
+    this.softwareService.getCategories().subscribe(categoryList => {
+      this.categoryList = categoryList
     })
   }
 
