@@ -1,4 +1,4 @@
 export interface Extras {
-  titulo: string;
-  fuente: string;
+  titulo: string,
+  fuente: string
 }
