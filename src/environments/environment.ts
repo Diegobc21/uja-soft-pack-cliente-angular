@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  appName: 'UJA Soft-Pack',
+  appName: 'UJA-Soft-Pack',
   apiUrl: 'http://localhost:3000'
 };
 
